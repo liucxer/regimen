@@ -13,13 +13,11 @@
     --muted: #6b7280;
     --line: #e5e7eb;
     --accent: #10b981;
-    --accent-dim: #d1fae5;
-    --warn: #f59e0b;
-    --over: #ef4444;
     --p: #3b82f6;
     --f: #f59e0b;
     --c: #8b5cf6;
     --k: #ef4444;
+    --over: #ef4444;
   }
   * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
   html, body {
@@ -27,252 +25,294 @@
     background: var(--bg);
     color: var(--ink);
     font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", "Microsoft YaHei", sans-serif;
-    font-size: 15px;
-    line-height: 1.5;
+    font-size: 14px;
+    line-height: 1.4;
   }
   body {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    height: 100dvh;
     max-width: 560px;
     margin: 0 auto;
-    padding: 16px 14px 100px;
-  }
-  header {
-    margin-bottom: 16px;
-  }
-  h1 {
-    font-size: 22px;
-    margin: 8px 0 14px;
-    font-weight: 700;
-  }
-  .settings {
-    background: var(--card);
-    border-radius: 14px;
-    padding: 14px;
-    box-shadow: 0 1px 2px rgba(0,0,0,.04);
-  }
-  .mode-switch {
-    display: flex;
-    background: var(--bg);
-    border-radius: 10px;
-    padding: 4px;
-    margin-bottom: 12px;
-  }
-  .mode-switch button {
-    flex: 1;
-    border: 0;
-    background: transparent;
-    padding: 10px;
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--muted);
-    border-radius: 8px;
-    transition: all .2s;
-  }
-  .mode-switch button.active {
-    background: var(--card);
-    color: var(--ink);
-    box-shadow: 0 1px 3px rgba(0,0,0,.08);
-  }
-  .weight-row {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 14px;
-    color: var(--muted);
-  }
-  .weight-row input {
-    flex: 1;
-    border: 1px solid var(--line);
-    border-radius: 8px;
     padding: 8px 10px;
-    font-size: 16px;
-    color: var(--ink);
-    background: var(--bg);
+    gap: 8px;
+    overflow: hidden;
   }
-  .weight-row input:focus { outline: none; border-color: var(--accent); }
 
-  .meal {
-    background: var(--card);
-    border-radius: 14px;
-    margin-bottom: 12px;
-    padding: 14px 14px 6px;
-    box-shadow: 0 1px 2px rgba(0,0,0,.04);
-  }
-  .meal h2 {
-    font-size: 16px;
-    margin: 0 0 10px;
+  /* Header */
+  .header {
     display: flex;
     align-items: center;
     gap: 8px;
+    flex-shrink: 0;
   }
-  .meal h2::before {
-    content: '';
-    width: 4px; height: 16px;
-    background: var(--accent);
-    border-radius: 2px;
-  }
-  .foods {
-    list-style: none;
+  .header h1 {
+    flex: 1;
+    font-size: 16px;
+    font-weight: 700;
     margin: 0;
-    padding: 0;
+  }
+  .mode-switch {
+    display: flex;
+    background: var(--card);
+    border-radius: 8px;
+    padding: 3px;
+    box-shadow: 0 1px 2px rgba(0,0,0,.05);
+  }
+  .mode-switch button {
+    border: 0;
+    background: transparent;
+    padding: 6px 10px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--muted);
+    border-radius: 6px;
+  }
+  .mode-switch button.active {
+    background: var(--ink);
+    color: #fff;
+  }
+  .weight-input {
+    display: flex;
+    align-items: center;
+    background: var(--card);
+    border-radius: 8px;
+    padding: 5px 8px;
+    box-shadow: 0 1px 2px rgba(0,0,0,.05);
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .weight-input input {
+    width: 36px;
+    border: 0;
+    background: transparent;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink);
+    text-align: center;
+    padding: 0 2px;
+  }
+  .weight-input input:focus { outline: none; }
+
+  /* Tabs */
+  .tabs {
+    display: flex;
+    background: var(--card);
+    border-radius: 10px;
+    padding: 3px;
+    box-shadow: 0 1px 2px rgba(0,0,0,.05);
+    flex-shrink: 0;
+  }
+  .tabs button {
+    flex: 1;
+    border: 0;
+    background: transparent;
+    padding: 8px 4px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--muted);
+    border-radius: 8px;
+    position: relative;
+  }
+  .tabs button.active {
+    background: var(--ink);
+    color: #fff;
+  }
+  .tabs button .dot {
+    display: inline-block;
+    min-width: 16px;
+    height: 16px;
+    line-height: 16px;
+    border-radius: 8px;
+    background: var(--accent);
+    color: #fff;
+    font-size: 10px;
+    margin-left: 4px;
+    padding: 0 4px;
+  }
+  .tabs button:not(.active) .dot { background: var(--accent); }
+
+  /* Food list */
+  .foods {
+    flex: 1;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 4px 12px;
+    box-shadow: 0 1px 2px rgba(0,0,0,.05);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
   .food {
     display: flex;
     align-items: center;
-    padding: 10px 4px;
+    padding: 8px 0;
     border-bottom: 1px solid var(--line);
-    cursor: pointer;
+    gap: 8px;
   }
   .food:last-child { border-bottom: 0; }
-  .food input[type=checkbox] {
-    width: 20px; height: 20px;
-    margin: 0 12px 0 0;
-    accent-color: var(--accent);
+  .food .info {
+    flex: 1;
+    min-width: 0;
   }
   .food .name {
-    flex: 1;
-    font-size: 15px;
-  }
-  .food .macro {
-    font-size: 12px;
-    color: var(--muted);
-  }
-  .food input:checked + .name { color: var(--accent); font-weight: 600; }
-
-  .calc-btn {
-    position: fixed;
-    bottom: 16px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: calc(100% - 28px);
-    max-width: 532px;
-    padding: 15px;
-    border: 0;
-    border-radius: 14px;
-    background: var(--ink);
-    color: #fff;
-    font-size: 16px;
-    font-weight: 600;
-    box-shadow: 0 6px 20px rgba(15,23,42,.25);
-    z-index: 10;
-  }
-  .calc-btn:active { transform: translateX(-50%) scale(.98); }
-
-  .result {
-    background: var(--card);
-    border-radius: 14px;
-    padding: 16px;
-    margin-bottom: 12px;
-    box-shadow: 0 1px 2px rgba(0,0,0,.04);
-  }
-  .result h2 {
-    font-size: 16px;
-    margin: 0 0 14px;
-  }
-  .metric { margin-bottom: 14px; }
-  .metric:last-child { margin-bottom: 0; }
-  .metric .head {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    margin-bottom: 6px;
-  }
-  .metric .label {
     font-size: 14px;
-    font-weight: 600;
-  }
-  .metric .vals {
-    font-size: 13px;
-    color: var(--muted);
-    font-variant-numeric: tabular-nums;
-  }
-  .metric .vals .actual {
-    font-size: 16px;
-    font-weight: 700;
+    font-weight: 500;
     color: var(--ink);
   }
+  .food .macro {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+  .stepper {
+    display: flex;
+    align-items: center;
+    gap: 0;
+  }
+  .stepper button {
+    width: 28px;
+    height: 28px;
+    border: 1px solid var(--line);
+    background: var(--card);
+    border-radius: 50%;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--ink);
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+  }
+  .stepper button:active { background: var(--bg); }
+  .stepper button.minus { color: var(--muted); }
+  .stepper .count {
+    min-width: 28px;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+  .stepper.zero .count { color: var(--muted); font-weight: 400; }
+  .stepper.zero button.minus { opacity: .35; }
+
+  /* Result */
+  .result {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+    flex-shrink: 0;
+  }
+  .metric {
+    background: var(--card);
+    border-radius: 10px;
+    padding: 8px 6px;
+    box-shadow: 0 1px 2px rgba(0,0,0,.05);
+    text-align: center;
+  }
+  .metric .label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--muted);
+    margin-bottom: 2px;
+  }
+  .metric .val {
+    font-size: 15px;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    line-height: 1.2;
+  }
+  .metric .target {
+    font-size: 10px;
+    color: var(--muted);
+    margin-bottom: 4px;
+    font-variant-numeric: tabular-nums;
+  }
   .bar {
-    height: 8px;
+    height: 4px;
     background: var(--bg);
-    border-radius: 4px;
+    border-radius: 2px;
     overflow: hidden;
   }
   .bar > div {
     height: 100%;
-    border-radius: 4px;
-    transition: width .4s ease;
+    width: 0%;
+    border-radius: 2px;
+    transition: width .35s ease;
   }
-  .metric[data-k=p] .label { color: var(--p); }
+  .metric[data-k=p] .label, .metric[data-k=p] .val { color: var(--p); }
   .metric[data-k=p] .bar > div { background: var(--p); }
-  .metric[data-k=f] .label { color: var(--f); }
+  .metric[data-k=f] .label, .metric[data-k=f] .val { color: var(--f); }
   .metric[data-k=f] .bar > div { background: var(--f); }
-  .metric[data-k=c] .label { color: var(--c); }
+  .metric[data-k=c] .label, .metric[data-k=c] .val { color: var(--c); }
   .metric[data-k=c] .bar > div { background: var(--c); }
-  .metric[data-k=k] .label { color: var(--k); }
+  .metric[data-k=k] .label, .metric[data-k=k] .val { color: var(--k); }
   .metric[data-k=k] .bar > div { background: var(--k); }
   .metric.over .bar > div { background: var(--over) !important; }
+  .metric.over .val { color: var(--over) !important; }
 
-  .hint {
-    color: var(--muted);
-    font-size: 12px;
-    margin-top: 12px;
-    line-height: 1.6;
+  .calc-btn {
+    width: 100%;
+    padding: 12px;
+    border: 0;
+    border-radius: 12px;
+    background: var(--ink);
+    color: #fff;
+    font-size: 15px;
+    font-weight: 600;
+    flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(15,23,42,.2);
   }
-  .hidden { display: none; }
+  .calc-btn:active { transform: scale(.98); }
 </style>
 </head>
 <body>
 
-<header>
-  <h1>每日营养计算器</h1>
-  <div class="settings">
-    <div class="mode-switch" id="modeSwitch">
-      <button class="active" data-mode="bulk">增肌期</button>
-      <button data-mode="cut">减脂期</button>
-    </div>
-    <div class="weight-row">
-      <span>体重</span>
-      <input type="number" id="weight" value="65" min="30" max="200" inputmode="decimal">
-      <span>kg</span>
-    </div>
+<div class="header">
+  <h1>营养计算器</h1>
+  <div class="mode-switch" id="modeSwitch">
+    <button class="active" data-mode="bulk">增肌</button>
+    <button data-mode="cut">减脂</button>
   </div>
-</header>
+  <div class="weight-input">
+    <input type="number" id="weight" value="65" min="30" max="200" inputmode="decimal">
+    <span>kg</span>
+  </div>
+</div>
 
-<main id="meals"></main>
+<div class="tabs" id="tabs"></div>
 
-<button class="calc-btn" id="calcBtn">计算今日摄入</button>
+<div class="foods" id="foods"></div>
 
-<section id="result" class="result hidden">
-  <h2>今日摄入 vs 目标</h2>
+<div class="result">
   <div class="metric" data-k="p">
-    <div class="head">
-      <span class="label">蛋白质</span>
-      <span class="vals"><span class="actual" id="aP">0</span> / <span id="tP">0</span> g</span>
-    </div>
-    <div class="bar"><div id="bP" style="width:0%"></div></div>
+    <div class="label">蛋白</div>
+    <div class="val" id="aP">0</div>
+    <div class="target">/ <span id="tP">0</span>g</div>
+    <div class="bar"><div id="bP"></div></div>
   </div>
   <div class="metric" data-k="f">
-    <div class="head">
-      <span class="label">脂肪</span>
-      <span class="vals"><span class="actual" id="aF">0</span> / <span id="tF">0</span> g</span>
-    </div>
-    <div class="bar"><div id="bF" style="width:0%"></div></div>
+    <div class="label">脂肪</div>
+    <div class="val" id="aF">0</div>
+    <div class="target">/ <span id="tF">0</span>g</div>
+    <div class="bar"><div id="bF"></div></div>
   </div>
   <div class="metric" data-k="c">
-    <div class="head">
-      <span class="label">碳水</span>
-      <span class="vals"><span class="actual" id="aC">0</span> / <span id="tC">0</span> g</span>
-    </div>
-    <div class="bar"><div id="bC" style="width:0%"></div></div>
+    <div class="label">碳水</div>
+    <div class="val" id="aC">0</div>
+    <div class="target">/ <span id="tC">0</span>g</div>
+    <div class="bar"><div id="bC"></div></div>
   </div>
   <div class="metric" data-k="k">
-    <div class="head">
-      <span class="label">热量</span>
-      <span class="vals"><span class="actual" id="aK">0</span> / <span id="tK">0</span> kcal</span>
-    </div>
-    <div class="bar"><div id="bK" style="width:0%"></div></div>
+    <div class="label">热量</div>
+    <div class="val" id="aK">0</div>
+    <div class="target">/ <span id="tK">0</span></div>
+    <div class="bar"><div id="bK"></div></div>
   </div>
-  <p class="hint" id="hint"></p>
-</section>
+</div>
+
+<button class="calc-btn" id="calcBtn">计算今日摄入</button>
 
 <script>
   const FOODS = {
@@ -291,7 +331,7 @@
     banana:      { name: '香蕉 1 根',        p: 1.3, f: 0.3, c: 27 },
     apple:       { name: '苹果 1 个',        p: 0.3, f: 0.2, c: 25 },
     nuts:        { name: '坚果 30g',         p: 6,   f: 18,  c: 6  },
-    powder:      { name: '蛋白粉 1 勺 (30g)',p: 24,  f: 1,   c: 2  },
+    powder:      { name: '蛋白粉 1 勺',      p: 24,  f: 1,   c: 2  },
   };
 
   const MEALS = [
@@ -301,7 +341,6 @@
     { id: 'postworkout', name: '练后餐',items: ['powder','banana','milk','apple','rice','nuts'] },
   ];
 
-  // g per kg body weight
   const TARGETS = {
     bulk: { p: 2.0, f: 1.0, c: 5.0 },
     cut:  { p: 2.2, f: 0.8, c: 2.5 },
@@ -310,43 +349,98 @@
   const kcal = (p, f, c) => Math.round(p * 4 + c * 4 + f * 9);
   const $ = id => document.getElementById(id);
 
-  // Render meals
-  const mealsRoot = $('meals');
+  // State: counts[mealId][foodKey] = number
+  const counts = {};
   MEALS.forEach(m => {
-    const sec = document.createElement('section');
-    sec.className = 'meal';
-    sec.dataset.meal = m.id;
-    sec.innerHTML = `<h2>${m.name}</h2><ul class="foods">` +
-      m.items.map(key => {
-        const f = FOODS[key];
-        return `<li>
-          <label class="food">
-            <input type="checkbox" data-food="${key}">
-            <span class="name">${f.name}</span>
-            <span class="macro">P${f.p} · F${f.f} · C${f.c}</span>
-          </label>
-        </li>`;
-      }).join('') +
-      `</ul>`;
-    mealsRoot.appendChild(sec);
+    counts[m.id] = {};
+    m.items.forEach(k => counts[m.id][k] = 0);
   });
 
-  // Mode switch
+  let activeMeal = MEALS[0].id;
   let mode = 'bulk';
+
+  // Render tabs
+  const tabsEl = $('tabs');
+  MEALS.forEach((m, i) => {
+    const b = document.createElement('button');
+    b.dataset.meal = m.id;
+    b.innerHTML = `${m.name}<span class="dot" style="display:none">0</span>`;
+    if (i === 0) b.classList.add('active');
+    b.addEventListener('click', () => {
+      activeMeal = m.id;
+      [...tabsEl.children].forEach(c => c.classList.toggle('active', c === b));
+      renderFoods();
+    });
+    tabsEl.appendChild(b);
+  });
+
+  function renderTabDots() {
+    [...tabsEl.children].forEach(b => {
+      const mealId = b.dataset.meal;
+      const sum = Object.values(counts[mealId]).reduce((a,b)=>a+b,0);
+      const dot = b.querySelector('.dot');
+      if (sum > 0) { dot.style.display = 'inline-block'; dot.textContent = sum; }
+      else dot.style.display = 'none';
+    });
+  }
+
+  // Render food list for active meal
+  const foodsEl = $('foods');
+  function renderFoods() {
+    const meal = MEALS.find(m => m.id === activeMeal);
+    foodsEl.innerHTML = meal.items.map(key => {
+      const f = FOODS[key];
+      const n = counts[activeMeal][key];
+      return `<div class="food">
+        <div class="info">
+          <div class="name">${f.name}</div>
+          <div class="macro">蛋白 ${f.p} · 脂肪 ${f.f} · 碳水 ${f.c}</div>
+        </div>
+        <div class="stepper ${n===0?'zero':''}" data-food="${key}">
+          <button class="minus" data-act="-1">−</button>
+          <span class="count">${n}</span>
+          <button class="plus" data-act="1">+</button>
+        </div>
+      </div>`;
+    }).join('');
+
+    foodsEl.querySelectorAll('.stepper').forEach(s => {
+      s.addEventListener('click', e => {
+        const btn = e.target.closest('button');
+        if (!btn) return;
+        const key = s.dataset.food;
+        const delta = parseInt(btn.dataset.act);
+        const next = Math.max(0, Math.min(20, counts[activeMeal][key] + delta));
+        if (next === counts[activeMeal][key]) return;
+        counts[activeMeal][key] = next;
+        s.querySelector('.count').textContent = next;
+        s.classList.toggle('zero', next === 0);
+        renderTabDots();
+      });
+    });
+  }
+  renderFoods();
+
+  // Mode switch
   $('modeSwitch').addEventListener('click', e => {
     const btn = e.target.closest('button');
     if (!btn) return;
-    [...e.currentTarget.querySelectorAll('button')].forEach(b => b.classList.toggle('active', b === btn));
+    [...e.currentTarget.children].forEach(b => b.classList.toggle('active', b === btn));
     mode = btn.dataset.mode;
   });
 
   // Calculate
-  $('calcBtn').addEventListener('click', () => {
+  function calculate() {
     const w = parseFloat($('weight').value) || 0;
     let P = 0, F = 0, C = 0;
-    document.querySelectorAll('input[data-food]:checked').forEach(cb => {
-      const f = FOODS[cb.dataset.food];
-      P += f.p; F += f.f; C += f.c;
+    MEALS.forEach(m => {
+      m.items.forEach(k => {
+        const n = counts[m.id][k];
+        if (n > 0) {
+          const f = FOODS[k];
+          P += f.p * n; F += f.f * n; C += f.c * n;
+        }
+      });
     });
 
     const t = TARGETS[mode];
@@ -356,31 +450,22 @@
     const tK = kcal(tP, tF, tC);
     const aK = kcal(P, F, C);
 
-    const fmt = n => (Math.round(n * 10) / 10).toString();
+    const fmt = n => Math.round(n * 10) / 10;
     $('aP').textContent = fmt(P); $('tP').textContent = tP;
     $('aF').textContent = fmt(F); $('tF').textContent = tF;
     $('aC').textContent = fmt(C); $('tC').textContent = tC;
     $('aK').textContent = aK;     $('tK').textContent = tK;
 
-    const setBar = (id, actual, target, key) => {
+    const setBar = (id, actual, target) => {
       const pct = target ? Math.min(100, (actual / target) * 100) : 0;
       $(id).style.width = pct + '%';
       const metric = $(id).closest('.metric');
       metric.classList.toggle('over', target > 0 && actual > target * 1.1);
     };
     setBar('bP', P, tP); setBar('bF', F, tF); setBar('bC', C, tC); setBar('bK', aK, tK);
-
-    // Hint
-    const modeName = mode === 'bulk' ? '增肌期' : '减脂期';
-    const gap = tP - P;
-    let hint = `${modeName} 目标基于体重 ${w}kg 计算（蛋白 ${t.p}g/kg · 脂肪 ${t.f}g/kg · 碳水 ${t.c}g/kg）。`;
-    if (gap > 5) hint += ` 蛋白还差 ${Math.round(gap)}g，可加 1 勺蛋白粉或 100g 鸡胸。`;
-    else if (P > tP * 1.2) hint += ` 蛋白偏高，注意肾脏负担。`;
-    $('hint').textContent = hint;
-
-    $('result').classList.remove('hidden');
-    $('result').scrollIntoView({ behavior: 'smooth', block: 'start' });
-  });
+  }
+  $('calcBtn').addEventListener('click', calculate);
+  calculate(); // initial render of targets
 </script>
 </body>
 </html>
